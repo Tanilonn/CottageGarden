@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Inventory inventory;
+    public UI_Inventory UIinventory;
+
     private string Name;
     //inventory
     //wallet
 
     private Rigidbody2D body;
 
-    private float moveX;
-    private float moveY;
+    private Vector2 movement;
 
     public float speed;
 
-
+    private void Awake()
+    {
+        inventory = new Inventory();
+        UIinventory.SetInventory(inventory);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +31,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
-    }
-
-    private void FixedUpdate()
-    {
-        body.velocity = new Vector2(moveX * speed, moveY * speed);
+        movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        transform.Translate(movement * speed * Time.deltaTime);
     }
 
 
