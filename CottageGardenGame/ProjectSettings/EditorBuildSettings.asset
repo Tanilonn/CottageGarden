@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Cottage.unity
+    guid: 4f79a4a901d6b894686093bb30f360fc
+  - enabled: 1
+    path: Assets/Scenes/Garden.unity
+    guid: 799d299f603e3f54fbcbdecc38b35de2
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e26fa5a9b02fc1845a3bd4412592072d
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 7c9702b5e8d9a0b4daefdfa3aa2c418b
+  - enabled: 1
+    path: Assets/Scenes/NewGame.unity
+    guid: 332f5c8adbe357145997b2fc4308cd59
   m_configObjects: {}
