@@ -23,6 +23,7 @@ public class SalesSpiritBehaviour : MonoBehaviour
             Debug.Log(seed.Name);
             var button = Instantiate(ItemSlot, Shelve.transform);           
             button.onClick.AddListener(delegate { SellItem(seed); });
+            button.GetComponentInChildren<Text>().text = seed.Name;
         }
     }
 
