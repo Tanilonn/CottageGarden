@@ -52,6 +52,8 @@ public class UI_Inventory : MonoBehaviour
 
     }
 
+    //TODO: seed dropdown
+
     private void DestoryItems()
     {
         foreach(var item in slots)

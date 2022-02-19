@@ -84,6 +84,8 @@ public class WorldBehaviour : MonoBehaviour
         SaveDataManager.Save();
     }
 
+    //TODO: get tile, list of plants, plant has tile (location)
+
     private int getIndex(Vector3Int tile)
     {
         return tile.x * 10 + tile.y;

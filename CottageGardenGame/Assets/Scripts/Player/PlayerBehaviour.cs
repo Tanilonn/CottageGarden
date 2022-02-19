@@ -60,6 +60,17 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void PlantSeed()
+    {
+        //add event for planting a seed on P key
+        //todo: create dropdown menu from inventory seeds
+        //check if any seed is selected in dropdown
+        //remove seed from inventory
+        //add plant to tile
+
+        //optional: use one key for all plant interactions, check the status of the tile first (empty, has plant, has grown plant)
+    }
+
     public void ChangeSelectedTool(int tool)
     {
         player.SelectedTool = (Tool)tool;
