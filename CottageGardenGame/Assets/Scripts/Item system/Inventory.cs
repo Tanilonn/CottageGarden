@@ -7,5 +7,7 @@ using UnityEngine.Tilemaps;
 public class Inventory
 {
     public List<SeedAmount> seeds = new List<SeedAmount>();
+    public List<ItemAmount> items = new List<ItemAmount>();
+    public int money = 50;
 
 }

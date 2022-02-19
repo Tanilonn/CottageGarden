@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "NormalizeVector2",
                     "interactions": "Press"
+                },
+                {
+                    "name": "PlantSeed",
+                    "type": "Button",
+                    "id": "71f9c8c6-0fa8-4572-9b57-1b7711eef5fc",
+                    "expectedControlType": "Button",
+                    "processors": "NormalizeVector2",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -141,6 +149,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c10a9cf6-70ff-4484-a169-0eeedd522246",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlantSeed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

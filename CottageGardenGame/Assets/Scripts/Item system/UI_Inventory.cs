@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,6 @@ public class UI_Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void OpenInventory()
@@ -41,18 +41,25 @@ public class UI_Inventory : MonoBehaviour
 
 
     private void ShowItems()
-    {        
-        for(int i = 0; i < inventory.inventory.seeds.Count; i++)
+    {
+        foreach (var seed in inventory.inventory.seeds)
         {
             GameObject slot = Instantiate(itemSlot, itemGrid.transform);
             slots.Add(slot);
             Text text = slot.GetComponentInChildren<Text>();
-            text.text = SeedType.types[inventory.inventory.seeds[i].ID].Name + inventory.inventory.seeds[i].amount;
+            text.text = SeedType.types[seed.ID].Name + seed.amount;
+        }
+        foreach (var item in inventory.inventory.items)
+        {
+            GameObject slot = Instantiate(itemSlot, itemGrid.transform);
+            slots.Add(slot);
+            Text text = slot.GetComponentInChildren<Text>();
+            text.text = ItemType.types[item.ID].Name + item.amount;
         }
 
     }
 
-    //TODO: seed dropdown
+    
 
     private void DestoryItems()
     {

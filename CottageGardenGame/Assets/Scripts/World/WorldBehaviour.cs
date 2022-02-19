@@ -7,7 +7,9 @@ public class WorldBehaviour : MonoBehaviour
 {
     public World world;
     public Tilemap tilemap;
+    public Tilemap plantMap;
     public List<TileBase> startTiles;
+    public List<TileBase> plantTiles;
     public BoundsInt area;
 
     private void Awake()
@@ -22,6 +24,9 @@ public class WorldBehaviour : MonoBehaviour
         {
             CreateTileMap();            
         }
+        //TODO: render all plants
+
+        InvokeRepeating("GrowPlants", 0f, 5f);
     }
 
     public void ChangeTerrain(int tool, Vector3Int tile)
@@ -33,6 +38,59 @@ public class WorldBehaviour : MonoBehaviour
         //the surrounding tiles determine which tile is used
         //the surrouding tiles need to be changed as well
         UpdateSaveData();
+    }
+
+    public bool AddPlant(SeedType seed, Vector3Int tile)
+    {
+        //check if tile is free
+        var location = new Vector2(tile.x, tile.y);
+        if (!world.plants.Exists(p => p.Location == tile))
+        {
+            //create plant at tile
+            var plant = new PlantTile() { ID = seed.ID, Location = tile, Growth = 0 };
+            world.plants.Add(plant);
+            //TODO: render plant
+            plantMap.SetTile(tile, plantTiles[0]);
+            UpdateSaveData();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int RemovePlant(Vector3Int tile)
+    {
+        var location = new Vector2(tile.x, tile.y);
+
+        var plant = world.plants.Find(p => p.Location == tile);
+
+        if (plant !=null && plant.Growth > PlantType.types[plant.ID].GrowPeriod)
+        {
+            //ready to harvest
+            world.plants.Remove(plant);
+            plantMap.SetTile(tile, null);
+            UpdateSaveData();
+            return plant.ID;
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+
+    public void GrowPlants()
+    {
+        foreach(var plant in world.plants)
+        {
+            plant.Growth++;
+            if(plant.Growth > PlantType.types[plant.ID].GrowPeriod)
+            {
+                plantMap.SetTile(plant.Location, plantTiles[1]);
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -84,7 +142,6 @@ public class WorldBehaviour : MonoBehaviour
         SaveDataManager.Save();
     }
 
-    //TODO: get tile, list of plants, plant has tile (location)
 
     private int getIndex(Vector3Int tile)
     {

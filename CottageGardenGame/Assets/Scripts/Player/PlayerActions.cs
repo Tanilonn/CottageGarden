@@ -33,6 +33,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""PlantSeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""71f9c8c6-0fa8-4572-9b57-1b7711eef5fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -156,6 +164,17 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""action"": ""UseTool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c10a9cf6-70ff-4484-a169-0eeedd522246"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlantSeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +185,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         m_Garden = asset.FindActionMap("Garden", throwIfNotFound: true);
         m_Garden_Move = m_Garden.FindAction("Move", throwIfNotFound: true);
         m_Garden_UseTool = m_Garden.FindAction("UseTool", throwIfNotFound: true);
+        m_Garden_PlantSeed = m_Garden.FindAction("PlantSeed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -217,12 +237,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     private IGardenActions m_GardenActionsCallbackInterface;
     private readonly InputAction m_Garden_Move;
     private readonly InputAction m_Garden_UseTool;
+    private readonly InputAction m_Garden_PlantSeed;
     public struct GardenActions
     {
         private @PlayerActions m_Wrapper;
         public GardenActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Garden_Move;
         public InputAction @UseTool => m_Wrapper.m_Garden_UseTool;
+        public InputAction @PlantSeed => m_Wrapper.m_Garden_PlantSeed;
         public InputActionMap Get() { return m_Wrapper.m_Garden; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -238,6 +260,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @UseTool.started -= m_Wrapper.m_GardenActionsCallbackInterface.OnUseTool;
                 @UseTool.performed -= m_Wrapper.m_GardenActionsCallbackInterface.OnUseTool;
                 @UseTool.canceled -= m_Wrapper.m_GardenActionsCallbackInterface.OnUseTool;
+                @PlantSeed.started -= m_Wrapper.m_GardenActionsCallbackInterface.OnPlantSeed;
+                @PlantSeed.performed -= m_Wrapper.m_GardenActionsCallbackInterface.OnPlantSeed;
+                @PlantSeed.canceled -= m_Wrapper.m_GardenActionsCallbackInterface.OnPlantSeed;
             }
             m_Wrapper.m_GardenActionsCallbackInterface = instance;
             if (instance != null)
@@ -248,6 +273,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @UseTool.started += instance.OnUseTool;
                 @UseTool.performed += instance.OnUseTool;
                 @UseTool.canceled += instance.OnUseTool;
+                @PlantSeed.started += instance.OnPlantSeed;
+                @PlantSeed.performed += instance.OnPlantSeed;
+                @PlantSeed.canceled += instance.OnPlantSeed;
             }
         }
     }
@@ -256,5 +284,6 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnUseTool(InputAction.CallbackContext context);
+        void OnPlantSeed(InputAction.CallbackContext context);
     }
 }

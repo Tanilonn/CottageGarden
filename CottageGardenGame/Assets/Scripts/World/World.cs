@@ -7,5 +7,5 @@ using UnityEngine.Tilemaps;
 public class World
 {
     public List<int> tiles;
-
+    public List<PlantTile> plants;
 }
