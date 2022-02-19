@@ -105,6 +105,11 @@ public class WorldBehaviour : MonoBehaviour
         }
     }
 
+    public PlantTile GetPlantOrDefault(Vector3Int tile)
+    {
+        return world.plants.Find(p => p.Location == tile);
+    }
+
 
     public bool AddItem(ItemType item, Vector3Int tile)
     {

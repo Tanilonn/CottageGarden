@@ -45,6 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
         controls.Garden.Move.performed += c => Move(c.ReadValue<Vector2>());
         controls.Garden.UseTool.performed += c => UseTool();
         controls.Garden.PlantSeed.performed += c => PlantSeed();
+        controls.Garden.PlantSeed.performed += c => WaterPlant();
         controls.Garden.PlantSeed.performed += c => HarvestPlant();
         controls.Garden.PlantSeed.performed += c => PickUpItem();
         controls.Garden.PlantSeed.performed += c => PlaceItem();
@@ -82,6 +83,22 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }           
         }
+    }
+
+    private void WaterPlant()
+    {
+        if (player.SelectedTool == Tool.Water)
+        {
+            Debug.Log("water");
+            var plant = world.GetPlantOrDefault(Vector3Int.FloorToInt(transform.position));
+            if (plant != null)
+            {
+                Debug.Log("watered:" +plant.Growth);
+                plant.Water();
+                Debug.Log(plant.Growth);
+
+            }
+        }         
     }
 
     private void HarvestPlant()
