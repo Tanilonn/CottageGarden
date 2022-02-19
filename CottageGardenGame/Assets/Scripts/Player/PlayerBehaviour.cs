@@ -62,7 +62,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (player.SelectedTool != Tool.Hand)
         {
-            Debug.Log((int)player.SelectedTool + "position: " + Vector3Int.FloorToInt(transform.position));
             world.ChangeTerrain((int)player.SelectedTool, Vector3Int.FloorToInt(transform.position));
         }
     }
