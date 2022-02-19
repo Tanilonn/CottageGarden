@@ -9,5 +9,6 @@ public class Player
     public int Exp = 0;
     public Tool SelectedTool;
     public int SelectedSeed;
+    public int SelectedItem;
 
 }

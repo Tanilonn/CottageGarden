@@ -8,6 +8,7 @@ public class InventoryBehaviour : MonoBehaviour
     public Inventory inventory;
     public Dropdown dropDown;
     public int selectedSeed;
+    public int selectedItem = -1;
     public Text wallet;
 
     private void Awake()
@@ -35,7 +36,7 @@ public class InventoryBehaviour : MonoBehaviour
         if (HasSeed(seed.ID))
         {
             var seedAmount = inventory.seeds.Find(s => s.ID == seed.ID);
-            if(seedAmount.amount > 0)
+            if(seedAmount.amount > 1)
             {
                 seedAmount.amount--;
             }
@@ -86,6 +87,11 @@ public class InventoryBehaviour : MonoBehaviour
 
     }
 
+    public int GetSelectedItem()
+    {
+        return selectedItem;
+    }
+
     public void AddItem(ItemType item)
     {
         if (HasItem(item.ID))
@@ -104,7 +110,7 @@ public class InventoryBehaviour : MonoBehaviour
         if (HasItem(item.ID))
         {
             var itemAmount = inventory.items.Find(s => s.ID == item.ID);
-            if (itemAmount.amount > 0)
+            if (itemAmount.amount > 1)
             {
                 itemAmount.amount--;
             }
@@ -125,6 +131,7 @@ public class InventoryBehaviour : MonoBehaviour
     {
         inventory.money += amount;
         wallet.text = inventory.money.ToString();
+        UpdateSaveData();
     }
 
     public bool CanAfford(int amount)

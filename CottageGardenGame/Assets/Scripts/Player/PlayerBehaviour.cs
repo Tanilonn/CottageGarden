@@ -19,6 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
         controls = new PlayerActions();
         player = SaveDataManager.gameData.Player;
         transform.position = player.Location;
+        player.SelectedItem = inventory.GetSelectedItem();
 
 
         //Inventory = SaveDataManager.gameData.inventory;
@@ -45,6 +46,8 @@ public class PlayerBehaviour : MonoBehaviour
         controls.Garden.UseTool.performed += c => UseTool();
         controls.Garden.PlantSeed.performed += c => PlantSeed();
         controls.Garden.PlantSeed.performed += c => HarvestPlant();
+        controls.Garden.PlantSeed.performed += c => PickUpItem();
+        controls.Garden.PlantSeed.performed += c => PlaceItem();
     }
 
     private void Move(Vector2 direction)
@@ -75,7 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (world.AddPlant(seed, Vector3Int.FloorToInt(transform.position)))
                 {
                     inventory.RemoveSeed(seed);
-                    Debug.Log("planted plant: " + PlantType.types[seed.ID]);
+                    UpdateSaveData();
                 }
             }           
         }
@@ -86,9 +89,39 @@ public class PlayerBehaviour : MonoBehaviour
         var plantID = world.RemovePlant(Vector3Int.FloorToInt(transform.position));
         if (plantID >= 0)
         {
-            //add plant to inventory
             inventory.AddItem(ItemType.types[plantID]);
-            Debug.Log("harvested plant: " + PlantType.types[plantID]);
+            UpdateSaveData();
+        }
+    }
+
+    private void PlaceItem()
+    {
+        var itemID = player.SelectedItem = inventory.GetSelectedItem();
+        if(itemID >= 0)
+        {
+            var item = ItemType.types[player.SelectedItem];
+            //check if selectedseed is in inventory
+            if (inventory.HasItem(player.SelectedItem))
+            {
+                //if succesfully added remove from inventory       
+                if (world.AddItem(item, Vector3Int.FloorToInt(transform.position)))
+                {
+                    inventory.RemoveItem(item);
+                    inventory.selectedItem = -1;
+                    player.SelectedItem = -1;
+                    UpdateSaveData();
+                }
+            }
+        }
+    }
+
+    private void PickUpItem()
+    {
+        var itemID = world.RemoveItem(Vector3Int.FloorToInt(transform.position));
+        if (itemID >= 0)
+        {
+            //add plant to inventory
+            inventory.AddItem(ItemType.types[itemID]);
         }
     }
 
@@ -101,7 +134,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void ChangeSelectedSeed(Dropdown dropdown)
     {
         player.SelectedSeed = inventory.GetDropDownValue();
-        Debug.Log(SeedType.types[player.SelectedSeed].Name);
+        UpdateSaveData();
     }
 
     private void UpdateSaveData()

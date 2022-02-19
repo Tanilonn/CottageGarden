@@ -11,7 +11,7 @@ public class ItemType : Seed
     public static readonly ItemType Beet = new ItemType(1, "beet", 20, 15);
 
     //reserved spots 1000-2000
-    public static readonly ItemType Light = new ItemType(1000, "light", 10, 5);
+    public static readonly ItemType Light = new ItemType(2, "light", 10, 5);
 
     public static List<ItemType> types = new List<ItemType>()
     {

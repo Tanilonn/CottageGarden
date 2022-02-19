@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,6 +9,7 @@ public class WorldBehaviour : MonoBehaviour
     public Tilemap plantMap;
     public List<TileBase> startTiles;
     public List<TileBase> plantTiles;
+    public List<TileBase> itemTiles;
     public BoundsInt area;
 
     private void Awake()
@@ -18,6 +18,7 @@ public class WorldBehaviour : MonoBehaviour
         {
             world = SaveDataManager.gameData.World;
             LoadTileMap();
+            InitItems();
         }
         //create the tilemap
         else
@@ -43,7 +44,6 @@ public class WorldBehaviour : MonoBehaviour
     public bool AddPlant(SeedType seed, Vector3Int tile)
     {
         //check if tile is free
-        var location = new Vector2(tile.x, tile.y);
         if (!world.plants.Exists(p => p.Location == tile))
         {
             //create plant at tile
@@ -62,13 +62,12 @@ public class WorldBehaviour : MonoBehaviour
 
     public int RemovePlant(Vector3Int tile)
     {
-        var location = new Vector2(tile.x, tile.y);
-
         var plant = world.plants.Find(p => p.Location == tile);
 
         if (plant !=null && plant.Growth > PlantType.types[plant.ID].GrowPeriod)
         {
             //ready to harvest
+            //TODO: fruit cycle (if plant has fruit cycle, reset and don't remove, else remove)
             world.plants.Remove(plant);
             plantMap.SetTile(tile, null);
             UpdateSaveData();
@@ -90,6 +89,56 @@ public class WorldBehaviour : MonoBehaviour
             {
                 plantMap.SetTile(plant.Location, plantTiles[1]);
             }
+        }
+    }
+
+
+    public bool AddItem(ItemType item, Vector3Int tile)
+    {
+        //check if tile is free
+        if (TileIsFree(tile))
+        {
+            //create plant at tile
+            var itemTile = new ItemTile() { ID = item.ID, Location = tile };
+            world.items.Add(itemTile);
+            //TODO: render plant
+            plantMap.SetTile(tile, itemTiles[0]);
+            UpdateSaveData();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int RemoveItem(Vector3Int tile)
+    {
+        var item = world.items.Find(p => p.Location == tile);
+
+        if (item != null)
+        {           
+            world.items.Remove(item);
+            plantMap.SetTile(tile, null);
+            UpdateSaveData();
+            return item.ID;
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+
+    private bool TileIsFree(Vector3Int tile)
+    {
+        if(plantMap.GetTile(tile) == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -122,6 +171,18 @@ public class WorldBehaviour : MonoBehaviour
                 tilemap.SetTile(pos, tile);
                 indexTile++;
             }
+        }
+    }
+
+    private void InitItems()
+    {
+        foreach(var item in world.items)
+        {
+            plantMap.SetTile(item.Location, itemTiles[0]);
+        }
+        foreach (var plant in world.plants)
+        {
+            plantMap.SetTile(plant.Location, plantTiles[0]);
         }
     }
 

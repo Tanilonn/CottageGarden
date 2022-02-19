@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 10
-    m_Right: 0
+    m_Right: 10
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
@@ -1639,7 +1639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryCanvas: {fileID: 1649865861}
-  itemSlot: {fileID: 9126345913423558090, guid: e4f178bbee15dab499ddc04916b2ced5,
+  itemSlot: {fileID: 2479071997064763671, guid: deef4ad9fd49bc847897349824fa996e,
     type: 3}
   itemGrid: {fileID: 209296158}
   inventory: {fileID: 0}
@@ -2247,6 +2247,7 @@ MonoBehaviour:
   world:
     tiles: 
     plants: []
+    items: []
   tilemap: {fileID: 114430124}
   plantMap: {fileID: 1581510072}
   startTiles:
@@ -2257,6 +2258,8 @@ MonoBehaviour:
   plantTiles:
   - {fileID: 11400000, guid: 171f04a0085e5044ab8b4d76f749c685, type: 2}
   - {fileID: 11400000, guid: c034b6d318da97d40984ae6292deb58f, type: 2}
+  itemTiles:
+  - {fileID: 11400000, guid: 113177c4fb4f0d2449cbd6def9cf536e, type: 2}
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 10, y: 10, z: 0}
@@ -5006,7 +5009,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325166903
 MonoBehaviour:
@@ -5578,6 +5581,7 @@ MonoBehaviour:
     Exp: 0
     SelectedTool: 0
     SelectedSeed: 0
+    SelectedItem: 0
   speed: 2
   UIinventory: {fileID: 208463994}
   world: {fileID: 399641954}
@@ -5621,6 +5625,7 @@ MonoBehaviour:
     money: 0
   dropDown: {fileID: 1325166903}
   selectedSeed: 0
+  selectedItem: 0
   wallet: {fileID: 1931116106}
 --- !u!1 &1542427577
 GameObject:
@@ -7407,7 +7412,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 300, y: 50}
+  m_SizeDelta: {x: 350, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &2019459464
 GameObject:

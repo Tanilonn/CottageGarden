@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,8 +31,15 @@ public class SalesSpiritBehaviour : MonoBehaviour
         foreach(var seed in SeedType.types)
         {
             var button = Instantiate(ItemSlot, Shelve.transform);           
-            button.onClick.AddListener(delegate { SellItem(seed); });
+            button.onClick.AddListener(delegate { SellSeed(seed); });
             button.GetComponentInChildren<Text>().text = seed.Name + "price: " + seed.SellPrice; ;
+        }
+
+        foreach (var item in ItemType.types.Where(i => i.ID >= 2))
+        {
+            var button = Instantiate(ItemSlot, Shelve.transform);
+            button.onClick.AddListener(delegate { SellItem(item); });
+            button.GetComponentInChildren<Text>().text = item.Name + "price: " + item.SellPrice; ;
         }
     }
 
@@ -67,14 +75,23 @@ public class SalesSpiritBehaviour : MonoBehaviour
 
     }
 
-    public void SellItem(SeedType seed)
+    public void SellSeed(SeedType seed)
     {
         if (PlayerInventory.CanAfford(seed.SellPrice))
         {
             //add item to player inventory
             PlayerInventory.AddSeed(seed);
             PlayerInventory.UpdateWallet(-seed.SellPrice);
+        }       
+    }
+
+    public void SellItem(ItemType item)
+    {
+        if (PlayerInventory.CanAfford(item.SellPrice))
+        {
+            //add item to player inventory
+            PlayerInventory.AddItem(item);
+            PlayerInventory.UpdateWallet(-item.SellPrice);
         }
-       
     }
 }
