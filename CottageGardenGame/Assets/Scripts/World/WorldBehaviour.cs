@@ -27,7 +27,6 @@ public class WorldBehaviour : MonoBehaviour
         {
             CreateTileMap();            
         }
-        //TODO: render all plants
 
         InvokeRepeating("GrowPlants", 0f, 5f);
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -62,7 +61,6 @@ public class WorldBehaviour : MonoBehaviour
             //create plant at tile
             var plant = new PlantTile() { ID = seed.ID, Location = tile, Growth = 0 };
             world.plants.Add(plant);
-            //TODO: render plant
             plantMap.SetTile(tile, plantTiles[0]);
             UpdateSaveData();
             return true;
@@ -119,7 +117,6 @@ public class WorldBehaviour : MonoBehaviour
             //create plant at tile
             var itemTile = new ItemTile() { ID = item.ID, Location = tile };
             world.items.Add(itemTile);
-            //TODO: render plant
             plantMap.SetTile(tile, itemTiles[0]);
             UpdateSaveData();
             return true;

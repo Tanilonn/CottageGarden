@@ -53,7 +53,6 @@ public class InventoryBehaviour : MonoBehaviour
         return inventory.seeds.Exists(s => s.ID == seedID);
     }
 
-    //TODO: seed dropdown
     public void SetDropdownOptions()
     {
         List<string> list = GetNames();
