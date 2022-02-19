@@ -4425,6 +4425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerInventory: {fileID: 1516032592}
+  OpenButton: {fileID: 2097650884}
   Shelve: {fileID: 825705461}
   ItemSlot: {fileID: 4062444182658406959, guid: 2d31200b6ac48664aafca191bc588b70,
     type: 3}
@@ -5280,6 +5281,17 @@ MonoBehaviour:
       - m_Target: {fileID: 825705461}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1233198060}
+        m_MethodName: CloseInventory
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

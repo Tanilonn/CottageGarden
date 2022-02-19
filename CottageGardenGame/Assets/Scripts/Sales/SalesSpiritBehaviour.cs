@@ -8,20 +8,56 @@ public class SalesSpiritBehaviour : MonoBehaviour
 {
     public InventoryBehaviour PlayerInventory;
 
+    public Button OpenButton;
     public GameObject Shelve;
     public Button ItemSlot;
 
+    private bool IsOpen;
+    private bool RoutineRunning;
     private List<Button> playerStock = new List<Button>();
 
     private void Awake()
     {
         DisplayStock();
         DisplayPlayerStock();
+
+        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.SalesSpiritEvent += GameManager_SalesSpiritEvent;
+        OpenButton.gameObject.SetActive(false);
+
+    }
+
+    private void GameManager_SalesSpiritEvent(object sender, System.EventArgs e)
+    {
+        Debug.Log("event sub");
+        if(!RoutineRunning) StartCoroutine(WalkInCoroutine());
+
+    }
+
+    public IEnumerator WalkInCoroutine()
+    {
+        //start walking in, can already click
+        RoutineRunning = true;
+        OpenButton.gameObject.SetActive(true);
+
+        while (IsOpen) yield return null; 
+        yield return new WaitForSeconds(5);
+        while (IsOpen) yield return null;
+
+        //start walking away, can't click anymore
+        OpenButton.gameObject.SetActive(false);
+        RoutineRunning = false;
     }
 
     public void OpenInventory()
     {
         RefreshPlayerStock();
+        IsOpen = true;
+    }
+
+    public void CloseInventory()
+    {
+        IsOpen = false;
 
     }
 

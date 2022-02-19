@@ -12,6 +12,8 @@ public class WorldBehaviour : MonoBehaviour
     public List<TileBase> itemTiles;
     public BoundsInt area;
 
+    private List<Vector3Int> allTileLocations = new List<Vector3Int>();
+
     private void Awake()
     {
         if(SaveDataManager.gameData.World.tiles != null)
@@ -28,6 +30,17 @@ public class WorldBehaviour : MonoBehaviour
         //TODO: render all plants
 
         InvokeRepeating("GrowPlants", 0f, 5f);
+        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.RandomPlantEvent += GameManager_RandomPlantEvent;
+    }
+
+    private void GameManager_RandomPlantEvent(object sender, System.EventArgs e)
+    {
+        var tile = RandomFreeTile();
+        var random = new System.Random();
+        var seed = SeedType.types[random.Next(SeedType.types.Count)];
+        AddPlant(seed, tile);
+        Debug.Log("RANDOM SEED EVENT! plant added: " + seed.Name);
     }
 
     public void ChangeTerrain(int tool, Vector3Int tile)
@@ -142,6 +155,19 @@ public class WorldBehaviour : MonoBehaviour
         }
     }
 
+    private Vector3Int RandomFreeTile()
+    {
+        //create a list of free tiles
+        var tiles = new List<Vector3Int>();
+        foreach (var pos in allTileLocations)
+        {
+            if (plantMap.GetTile(pos) == null) tiles.Add(pos);
+        }      
+        
+        var random = new System.Random();
+        return tiles[random.Next(tiles.Count)];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -170,6 +196,7 @@ public class WorldBehaviour : MonoBehaviour
                 var tile = startTiles[world.tiles[indexTile]];
                 tilemap.SetTile(pos, tile);
                 indexTile++;
+                allTileLocations.Add(pos);
             }
         }
     }
@@ -197,6 +224,7 @@ public class WorldBehaviour : MonoBehaviour
                 var tile = startTiles[Random.Range(0, 2)];
                 tilemap.SetTile(pos, tile);
                 world.tiles.Add(startTiles.IndexOf(tile));
+                allTileLocations.Add(pos);
             }
         }
         UpdateSaveData();
