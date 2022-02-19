@@ -1,33 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [Serializable]
 public class Inventory
 {
-    private List<Item> items;
+    public List<SeedAmount> seeds = new List<SeedAmount>();
 
-    public Inventory()
-    {
-        items = new List<Item>();
-    }
-    public void AddItem(Item item)
-    {
-        items.Add(item);
-    }
-
-    public void RemoveItem(Item item)
-    {
-        if (items.Contains(item))
-        {
-            items.Remove(item);
-        }
-    }
-
-    public List<Item> GetItems()
-    {
-        return items;
-    }
-
-
-   
 }

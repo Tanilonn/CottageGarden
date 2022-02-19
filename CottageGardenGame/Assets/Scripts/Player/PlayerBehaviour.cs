@@ -8,8 +8,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float speed;
     public UI_Inventory UIinventory;
     public WorldBehaviour world;
+    public InventoryBehaviour inventory;
 
-    private Vector2 movement;
     private PlayerActions controls;
 
 
@@ -21,7 +21,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 
         //Inventory = SaveDataManager.gameData.inventory;
-    UIinventory.SetInventory(player.Inventory);
+    UIinventory.SetInventory(inventory);
+
         //transform.position = SaveDataManager.gameData.playerLocation;
     }
 
@@ -70,11 +71,6 @@ public class PlayerBehaviour : MonoBehaviour
         SaveDataManager.gameData.Player = player;
     }
 
-    //controls.Garden.UseTool 
-    //check if any tool is selected
-    //check which tool is selected
-    //should use the currently active tool on the tile, 
-    //what tool is active determines what this does to the terrain
-
+   
    
 }

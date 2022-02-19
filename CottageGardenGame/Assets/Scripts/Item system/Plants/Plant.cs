@@ -1,6 +1,6 @@
 ﻿
 
-public abstract class Plant : Item
+public abstract class Plant 
 {
    
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameData
 {
     public Player Player = new Player();
+    public Inventory Inventory = new Inventory();
     public World World = new World();
     //PLAYER
     /*

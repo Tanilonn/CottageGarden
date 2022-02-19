@@ -26,13 +26,10 @@ public class WorldBehaviour : MonoBehaviour
 
     public void ChangeTerrain(int tool, Vector3Int tile)
     {
-
         //the tool determines where in the list we search, for now 1=water, 2=dirt, 3=stone, 4=grass
         tilemap.SetTile(tile, startTiles[tool-1]);
         world.tiles[getIndex(tile)] = tool - 1;
-        //there is a list of all available tiles
-        //the list is ordered by terrain
-        //which tool is selected determines which type is used
+       
         //the surrounding tiles determine which tile is used
         //the surrouding tiles need to be changed as well
         UpdateSaveData();
