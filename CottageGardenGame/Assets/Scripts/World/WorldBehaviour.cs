@@ -53,7 +53,7 @@ public class WorldBehaviour : MonoBehaviour
     {
         //for saving
         var terrainType = tool - 1;
-        if(getIndex(tile) > 0)
+        if(getIndex(tile) >= 0)
         {
             world.tiles[getIndex(tile)] = terrainType;
 
@@ -81,9 +81,13 @@ public class WorldBehaviour : MonoBehaviour
         List<int> surrounding = new List<int> { top, bottom, left, right };
         var sameType = surrounding.Count(s => s == terrainType);
 
+        if(terrainType == 3)
+        {
+            tilemap.SetTile(tile, null);
+        }
         //the surrounding tiles determine which tile is used
         //if there are no tiles of the same type around, use the single tile
-        if (sameType == 0)
+        else if (sameType == 0)
         {
             tilemap.SetTile(tile, singleTiles[terrainType]);
         }
